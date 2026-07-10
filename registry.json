@@ -1,0 +1,12 @@
+{
+  "registryVersion": 1,
+  "plugins": [
+    {
+      "id": "plantuml",
+      "name": "PlantUML Diagrams",
+      "manifest": "plugins/plantuml/plugin.json",
+      "builtin": true,
+      "summary": "Renders ```plantuml / ```puml fences via the real PlantUML engine (private JRE + plantuml-mit.jar, downloaded on install)."
+    }
+  ]
+}

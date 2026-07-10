@@ -1,0 +1,28 @@
+{
+  "manifestVersion": 1,
+  "id": "plantuml",
+  "name": "PlantUML Diagrams",
+  "description": "Renders ```plantuml and ```puml code blocks as diagrams. Downloads a private Java runtime + the PlantUML engine (~90 MB) on install, isolated from any Java already on your system — nothing is bundled until you opt in.",
+  "version": "1.0.0",
+  "homepage": "https://plantuml.com",
+  "license": "MIT (plantuml-mit)",
+  "type": "diagram",
+  "fenceLanguages": ["plantuml", "puml"],
+  "runtime": { "kind": "jre", "majorVersion": 17 },
+  "artifacts": [
+    {
+      "name": "plantuml.jar",
+      "source": "github-latest",
+      "repo": "plantuml/plantuml",
+      "assetPattern": "^plantuml-mit-[\\d.]+\\.jar$"
+    }
+  ],
+  "render": {
+    "command": "{java}",
+    "args": ["-Djava.awt.headless=true", "-jar", "{dir}/plantuml.jar", "-tsvg", "-pipe", "-charset", "UTF-8", "-Playout=smetana"],
+    "input": "stdin",
+    "output": "stdout",
+    "timeoutSeconds": 20,
+    "wrap": { "prefix": "@startuml\n", "suffix": "\n@enduml", "unlessContains": "@start" }
+  }
+}

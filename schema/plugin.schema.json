@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/thebubbsy/marksmith-plugins/main/schema/plugin.schema.json",
+  "title": "Marksmith plugin manifest",
+  "type": "object",
+  "required": ["manifestVersion", "id", "name", "description", "version", "type"],
+  "additionalProperties": true,
+  "properties": {
+    "manifestVersion": { "const": 1 },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "description": "Lowercase, stable, unique. Doubles as the install folder name."
+    },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "minLength": 1 },
+    "homepage": { "type": "string", "format": "uri" },
+    "license": { "type": "string" },
+    "type": { "enum": ["diagram"] },
+    "fenceLanguages": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+      "minItems": 1
+    },
+    "runtime": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": { "enum": ["jre"] },
+        "majorVersion": { "type": "integer", "minimum": 8, "default": 17 }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "source"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "os": { "enum": ["windows", "linux", "mac"] },
+          "arch": { "enum": ["x64", "aarch64"] },
+          "source": { "enum": ["url", "github-latest"] },
+          "url": { "type": "string", "format": "uri" },
+          "sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
+          "repo": { "type": "string", "pattern": "^[^/]+/[^/]+$" },
+          "assetPattern": { "type": "string" },
+          "extract": { "type": "boolean", "default": false },
+          "stripRoot": { "type": "boolean", "default": false }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "source": { "const": "url" } } },
+            "then": { "required": ["url"] }
+          },
+          {
+            "if": { "properties": { "source": { "const": "github-latest" } } },
+            "then": { "required": ["repo", "assetPattern"] }
+          }
+        ]
+      }
+    },
+    "render": {
+      "type": "object",
+      "required": ["command"],
+      "properties": {
+        "command": { "type": "string", "minLength": 1 },
+        "args": { "type": "array", "items": { "type": "string" } },
+        "input": { "enum": ["stdin", "file"], "default": "stdin" },
+        "output": { "enum": ["stdout", "file"], "default": "stdout" },
+        "timeoutSeconds": { "type": "integer", "minimum": 1, "maximum": 120, "default": 20 },
+        "wrap": {
+          "type": "object",
+          "properties": {
+            "prefix": { "type": "string" },
+            "suffix": { "type": "string" },
+            "unlessContains": { "type": "string" }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "type": { "const": "diagram" } } },
+      "then": { "required": ["fenceLanguages", "render"] }
+    }
+  ]
+}
