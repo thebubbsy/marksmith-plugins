@@ -67,6 +67,7 @@
         "command": { "type": "string", "minLength": 1 },
         "args": { "type": "array", "items": { "type": "string" } },
         "input": { "enum": ["stdin", "file"], "default": "stdin" },
+        "inputExtension": { "type": "string", "pattern": "^\\.[A-Za-z0-9.]+$", "default": ".txt" },
         "output": { "enum": ["stdout", "file"], "default": "stdout" },
         "timeoutSeconds": { "type": "integer", "minimum": 1, "maximum": 120, "default": 20 },
         "wrap": {

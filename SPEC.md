@@ -67,6 +67,7 @@ On Linux/macOS, non-archive artifacts and extracted files referenced as the rend
 | `command` | Executable to run. Placeholders: `{java}` (the provisioned JRE's java), `{dir}` (the plugin's folder). On Windows, a command without an extension gets `.exe` appended automatically if that file exists — so `{dir}/d2` works cross-platform. |
 | `args` | Argument list (each element is one argument — no shell, no quoting games). Placeholders: `{java}`, `{dir}`, plus `{input}` / `{output}` (temp file paths, only meaningful with the file modes below). |
 | `input` | `"stdin"`: diagram source is written to your process's stdin. `"file"`: source is written to a temp file whose path replaces `{input}` in args. |
+| `inputExtension` | With `input: "file"` — the temp file's extension, dot included (default `".txt"`). Tools like Typst (`.typ`) and D2 (`.d2`) enforce or sniff the extension. |
 | `output` | `"stdout"`: your process prints the SVG to stdout. `"file"`: you write it to the path that replaces `{output}`. |
 | `timeoutSeconds` | 1–120 (default 20). The process tree is killed on expiry and the render is treated as failed. |
 | `wrap` | Optional convenience: prepend `prefix` / append `suffix` to the fence content before it reaches your tool, unless the source already contains `unlessContains`. Use for tools that demand delimiters users habitually omit (PlantUML's `@startuml`). |

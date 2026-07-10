@@ -1,0 +1,71 @@
+{
+  "manifestVersion": 1,
+  "id": "d2",
+  "name": "D2 Diagrams",
+  "description": "Renders ```d2 code blocks with Terrastruct's D2 — a modern diagram scripting language great for architecture and system diagrams. Downloads the official single-binary D2 release (~15 MB) on install.",
+  "version": "1.0.0",
+  "homepage": "https://d2lang.com",
+  "license": "MPL-2.0",
+  "type": "diagram",
+  "fenceLanguages": ["d2"],
+  "artifacts": [
+    {
+      "name": "d2.tar.gz",
+      "os": "windows",
+      "arch": "x64",
+      "source": "github-latest",
+      "repo": "terrastruct/d2",
+      "assetPattern": "^d2-v[\\d.]+-windows-amd64\\.tar\\.gz$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "d2.tar.gz",
+      "os": "linux",
+      "arch": "x64",
+      "source": "github-latest",
+      "repo": "terrastruct/d2",
+      "assetPattern": "^d2-v[\\d.]+-linux-amd64\\.tar\\.gz$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "d2.tar.gz",
+      "os": "linux",
+      "arch": "aarch64",
+      "source": "github-latest",
+      "repo": "terrastruct/d2",
+      "assetPattern": "^d2-v[\\d.]+-linux-arm64\\.tar\\.gz$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "d2.tar.gz",
+      "os": "mac",
+      "arch": "aarch64",
+      "source": "github-latest",
+      "repo": "terrastruct/d2",
+      "assetPattern": "^d2-v[\\d.]+-macos-arm64\\.tar\\.gz$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "d2.tar.gz",
+      "os": "mac",
+      "arch": "x64",
+      "source": "github-latest",
+      "repo": "terrastruct/d2",
+      "assetPattern": "^d2-v[\\d.]+-macos-amd64\\.tar\\.gz$",
+      "extract": true,
+      "stripRoot": true
+    }
+  ],
+  "render": {
+    "command": "{dir}/bin/d2",
+    "args": ["{input}", "{output}"],
+    "input": "file",
+    "inputExtension": ".d2",
+    "output": "file",
+    "timeoutSeconds": 30
+  }
+}

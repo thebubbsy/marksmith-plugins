@@ -1,0 +1,40 @@
+{
+  "manifestVersion": 1,
+  "id": "graphviz",
+  "name": "Graphviz / DOT",
+  "description": "Renders ```dot / ```graphviz code blocks with the official Graphviz engine — the classic graph layout tool. Downloads the official Graphviz 15.1.0 release (~35 MB, checksum-pinned) on install. Windows and macOS (Intel) for now; Graphviz publishes no portable Linux build.",
+  "version": "1.0.0",
+  "homepage": "https://graphviz.org",
+  "license": "EPL-1.0",
+  "type": "diagram",
+  "fenceLanguages": ["dot", "graphviz"],
+  "artifacts": [
+    {
+      "name": "graphviz.zip",
+      "os": "windows",
+      "arch": "x64",
+      "source": "url",
+      "url": "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/15.1.0/windows_10_cmake_Release_Graphviz-15.1.0-win64.zip",
+      "sha256": "c3ee71ff81ab97352082225574a140f20f5d6929d5f33d1097a1fe0e4161962a",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "graphviz.zip",
+      "os": "mac",
+      "arch": "x64",
+      "source": "url",
+      "url": "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/15.1.0/Darwin_23.6.0_Graphviz-15.1.0-Darwin.zip",
+      "sha256": "2f577e3ac08d391ce7a62a9977b1de737005f9010dbb6abd326e6a0bc1a7cb0c",
+      "extract": true,
+      "stripRoot": true
+    }
+  ],
+  "render": {
+    "command": "{dir}/bin/dot",
+    "args": ["-Tsvg"],
+    "input": "stdin",
+    "output": "stdout",
+    "timeoutSeconds": 20
+  }
+}

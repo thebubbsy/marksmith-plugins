@@ -1,0 +1,71 @@
+{
+  "manifestVersion": 1,
+  "id": "vega-lite",
+  "name": "Vega-Lite Charts",
+  "description": "Renders ```vega-lite / ```vegalite code blocks (JSON chart specs) as real data visualizations — bar charts, scatter plots, line charts and more. Downloads the official vl-convert single binary (~30 MB) on install.",
+  "version": "1.0.0",
+  "homepage": "https://vega.github.io/vega-lite/",
+  "license": "BSD-3-Clause",
+  "type": "diagram",
+  "fenceLanguages": ["vega-lite", "vegalite"],
+  "artifacts": [
+    {
+      "name": "vl-convert.zip",
+      "os": "windows",
+      "arch": "x64",
+      "source": "github-latest",
+      "repo": "vega/vl-convert",
+      "assetPattern": "^vl-convert_win-64\\.zip$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "vl-convert.zip",
+      "os": "linux",
+      "arch": "x64",
+      "source": "github-latest",
+      "repo": "vega/vl-convert",
+      "assetPattern": "^vl-convert_linux-64\\.zip$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "vl-convert.zip",
+      "os": "linux",
+      "arch": "aarch64",
+      "source": "github-latest",
+      "repo": "vega/vl-convert",
+      "assetPattern": "^vl-convert_linux-aarch64\\.zip$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "vl-convert.zip",
+      "os": "mac",
+      "arch": "aarch64",
+      "source": "github-latest",
+      "repo": "vega/vl-convert",
+      "assetPattern": "^vl-convert_osx-arm64\\.zip$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "vl-convert.zip",
+      "os": "mac",
+      "arch": "x64",
+      "source": "github-latest",
+      "repo": "vega/vl-convert",
+      "assetPattern": "^vl-convert_osx-64\\.zip$",
+      "extract": true,
+      "stripRoot": true
+    }
+  ],
+  "render": {
+    "command": "{dir}/vl-convert",
+    "args": ["vl2svg", "--input", "{input}", "--output", "{output}"],
+    "input": "file",
+    "inputExtension": ".vl.json",
+    "output": "file",
+    "timeoutSeconds": 30
+  }
+}

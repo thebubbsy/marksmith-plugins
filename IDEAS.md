@@ -1,23 +1,34 @@
-# Plugin ideas — help wanted
+# Plugin ideas — status & help wanted
 
-Ten plugins we'd love to see. Each is a good fit for the manifest format today (subprocess in, SVG out); implementation notes point at the easiest known path. Claim one by opening an issue.
+The original ten-plugin wishlist, updated. Five are **shipped** (in `plugins/`, built into Marksmith, verified live: real install → real render). Five are **blocked on spec capabilities** — each is a well-scoped contribution to the host engine; claim one by opening an issue.
 
-| # | Plugin | Fences | Payload & notes |
+## Shipped ✅
+
+| Plugin | Fences | Notes |
+| --- | --- | --- |
+| **PlantUML** | ` ```plantuml `, ` ```puml ` | Private JRE + plantuml-mit.jar; Smetana layout (no Graphviz needed). All platforms. |
+| **Graphviz / DOT** | ` ```dot `, ` ```graphviz ` | Official 15.1.0 zips, checksum-pinned. Windows + macOS-Intel (upstream publishes no portable Linux build; macOS-ARM ships only as .pkg). |
+| **D2 (Terrastruct)** | ` ```d2 ` | Single official binary, all platforms via github-latest. |
+| **Typst** | ` ```typst ` | Single official binary. Windows-only until the installer supports `.tar.xz` (Linux/macOS release format — see gaps below). |
+| **Vega-Lite** | ` ```vega-lite `, ` ```vegalite ` | Official `vl-convert` binary, all platforms. JSON chart spec in, SVG chart out. |
+
+## Blocked on spec/engine gaps 🔧
+
+| # | Plugin | Fences | What it needs |
 | --- | --- | --- | --- |
-| 1 | **Graphviz / DOT** | ` ```dot `, ` ```graphviz ` | Official Graphviz release zips (windows) / tarballs. `dot -Tsvg` reads stdin, writes stdout — the textbook manifest. The single most-requested diagram language after Mermaid/PlantUML. |
-| 2 | **D2 (Terrastruct)** | ` ```d2 ` | Single static Go binary per platform from `terrastruct/d2` GitHub releases. `d2 {input} {output}` (file/file). Modern look, great for architecture diagrams. |
-| 3 | **Typst math & snippets** | ` ```typst ` | Single Rust binary from `typst/typst` releases. `typst compile --format svg {input} {output}`. Beautiful typeset math/figures without a LaTeX install. |
-| 4 | **Vega-Lite charts** | ` ```vega-lite `, ` ```vegalite ` | `vl-convert` single binary (`vega/vl-convert` releases): JSON chart spec → SVG. Turns AI-generated chart specs into real data viz — very on-theme for Marksmith. |
-| 5 | **WaveDrom timing diagrams** | ` ```wavedrom ` | `wavedrom-cli` (needs a Node runtime — motivates a `"runtime": { "kind": "node" }` addition to the spec, mirroring the JRE provisioner). Digital/hardware timing diagrams. |
-| 6 | **LilyPond sheet music** | ` ```lilypond ` | Official LilyPond binaries; `lilypond -dbackend=svg`. Markdown → engraved scores. |
-| 7 | **ABC music notation** | ` ```abc ` | `abcm2ps -g` (tiny C binary) → SVG. Much lighter than LilyPond for simple tunes. |
-| 8 | **LaTeX / TikZ** | ` ```tikz `, ` ```latex ` | Tectonic (single-binary LaTeX engine) + `dvisvgm`. The heaviest payload here but unlocks the entire TikZ ecosystem. |
-| 9 | **Kroki bridge (local)** | ` ```blockdiag `, ` ```seqdiag `, ` ```nwdiag `, … | A locally-run Kroki container/binary exposes ~25 diagram languages behind one endpoint. Needs a "long-lived local server" render mode — a spec extension worth designing. |
-| 10 | **Pandoc importer** | n/a (importer) | Not a diagram renderer: `type: "importer"` converting .rst/.org/.mediawiki/.docx → Markdown on file-drop. The first exercise of a second plugin `type` — spec design welcome. |
+| 1 | **WaveDrom timing diagrams** | ` ```wavedrom ` | A `runtime: { kind: "node" }` provisioner (upstream ships `wavedrom-cli.js`, a single bundled JS file — trivial once Node can be provisioned like the JRE is). |
+| 2 | **LilyPond sheet music** | ` ```lilypond ` | An `{outputBase}` placeholder — LilyPond takes an output *basename* and appends `.svg` itself. Official binaries exist for all platforms. |
+| 3 | **ABC music notation** | ` ```abc ` | A reliable binary distribution of `abcm2ps` (upstream publishes no release binaries), or a build-from-source story. |
+| 4 | **LaTeX / TikZ** | ` ```tikz `, ` ```latex ` | Tectonic downloads TeX packages over the network *at first render*, violating the offline-after-install rule — needs either a "network allowed at render" manifest flag (with UI disclosure) or a pre-warmed package cache at install. Also needs `dvisvgm` as a second pipeline stage (`renderPipeline` — multiple commands). |
+| 5 | **Kroki local bridge** | ` ```blockdiag `, ` ```seqdiag `, … | A long-lived local-server render mode with lifecycle management (start on first render, health check, stop on app exit). Unlocks ~25 diagram languages in one plugin. |
+| 6 | **Pandoc importer** | n/a | A second manifest `type: "importer"` (file-drop → Markdown conversion) — the manifest format was designed to extend this way; the app-side contract needs defining. |
 
-## Spec gaps these surface (PRs welcome)
+## Engine gaps these surface (PRs to the main app welcome)
 
-- `runtime: { kind: "node" }` — a managed Node.js provisioner (needed by #5, useful for many JS-based tools).
-- A long-lived local-server render mode with lifecycle management (needed by #9).
-- A `type: "importer"` contract (needed by #10).
-- PNG output for tools that can't emit SVG (`"output": "stdout-png"`), rasterized into the document.
+- `runtime: { kind: "node" }` — managed Node.js provisioner mirroring the JRE one (#1).
+- `.tar.xz` extraction support — unblocks Typst on Linux/macOS (and many Rust-tool release archives).
+- `{outputBase}` placeholder (#2).
+- `renderPipeline` — run N commands in sequence, not just one (#4).
+- A long-lived local-server render mode (#5).
+- `type: "importer"` contract (#6).
+- PNG output mode (`"output": "stdout-png"`) for tools that can't emit SVG, rasterized into the document.

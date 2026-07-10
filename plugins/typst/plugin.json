@@ -1,0 +1,41 @@
+{
+  "manifestVersion": 1,
+  "id": "typst",
+  "name": "Typst Snippets",
+  "description": "Renders ```typst code blocks — beautifully typeset math, tables, and figures without a LaTeX install. Downloads the official single-binary Typst release (~20 MB) on install. Windows only for now (Linux/macOS releases ship as .tar.xz, which the installer can't extract yet).",
+  "version": "1.0.0",
+  "homepage": "https://typst.app",
+  "license": "Apache-2.0",
+  "type": "diagram",
+  "fenceLanguages": ["typst"],
+  "artifacts": [
+    {
+      "name": "typst.zip",
+      "os": "windows",
+      "arch": "x64",
+      "source": "github-latest",
+      "repo": "typst/typst",
+      "assetPattern": "^typst-x86_64-pc-windows-msvc\\.zip$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "typst.zip",
+      "os": "windows",
+      "arch": "aarch64",
+      "source": "github-latest",
+      "repo": "typst/typst",
+      "assetPattern": "^typst-aarch64-pc-windows-msvc\\.zip$",
+      "extract": true,
+      "stripRoot": true
+    }
+  ],
+  "render": {
+    "command": "{dir}/typst",
+    "args": ["compile", "--format", "svg", "{input}", "{output}"],
+    "input": "file",
+    "inputExtension": ".typ",
+    "output": "file",
+    "timeoutSeconds": 30
+  }
+}

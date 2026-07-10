@@ -6,7 +6,45 @@
       "name": "PlantUML Diagrams",
       "manifest": "plugins/plantuml/plugin.json",
       "builtin": true,
+      "verified": true,
+      "platforms": ["windows", "linux", "mac"],
       "summary": "Renders ```plantuml / ```puml fences via the real PlantUML engine (private JRE + plantuml-mit.jar, downloaded on install)."
+    },
+    {
+      "id": "d2",
+      "name": "D2 Diagrams",
+      "manifest": "plugins/d2/plugin.json",
+      "builtin": true,
+      "verified": true,
+      "platforms": ["windows", "linux", "mac"],
+      "summary": "Renders ```d2 fences with Terrastruct's D2 — modern architecture/system diagrams from a single official binary."
+    },
+    {
+      "id": "graphviz",
+      "name": "Graphviz / DOT",
+      "manifest": "plugins/graphviz/plugin.json",
+      "builtin": true,
+      "verified": true,
+      "platforms": ["windows", "mac-x64"],
+      "summary": "Renders ```dot / ```graphviz fences with the official Graphviz engine (checksum-pinned 15.1.0). No portable Linux build exists upstream."
+    },
+    {
+      "id": "typst",
+      "name": "Typst Snippets",
+      "manifest": "plugins/typst/plugin.json",
+      "builtin": true,
+      "verified": true,
+      "platforms": ["windows"],
+      "summary": "Renders ```typst fences — typeset math/tables/figures without LaTeX. Windows-only until the installer supports .tar.xz."
+    },
+    {
+      "id": "vega-lite",
+      "name": "Vega-Lite Charts",
+      "manifest": "plugins/vega-lite/plugin.json",
+      "builtin": true,
+      "verified": true,
+      "platforms": ["windows", "linux", "mac"],
+      "summary": "Renders ```vega-lite / ```vegalite JSON chart specs as real data visualizations via the official vl-convert binary."
     }
   ]
 }

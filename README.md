@@ -4,6 +4,18 @@ Community plugin registry for [Marksmith](https://github.com/thebubbsy/marksmith
 
 Plugins add **optional, separately-downloaded capabilities** to Marksmith. Nothing in this repo is bundled with the app: each plugin's payload (renderer binaries, runtimes) downloads only when a user clicks **Install** in *Settings → Plugins*, into its own isolated folder.
 
+## Available plugins
+
+| Plugin | Fences | Platforms |
+| --- | --- | --- |
+| [PlantUML](plugins/plantuml/plugin.json) | ` ```plantuml `, ` ```puml ` | Windows, Linux, macOS |
+| [Graphviz / DOT](plugins/graphviz/plugin.json) | ` ```dot `, ` ```graphviz ` | Windows, macOS (Intel) |
+| [D2](plugins/d2/plugin.json) | ` ```d2 ` | Windows, Linux, macOS |
+| [Typst](plugins/typst/plugin.json) | ` ```typst ` | Windows |
+| [Vega-Lite](plugins/vega-lite/plugin.json) | ` ```vega-lite `, ` ```vegalite ` | Windows, Linux, macOS |
+
+All five ship built into Marksmith's *Settings → Plugins* list (payloads still download only on install); the copies here are the canonical manifests. Every listed plugin is verified: real install, real render, on at least Windows. See [IDEAS.md](IDEAS.md) for what's next and where help is wanted.
+
 ## What a plugin is
 
 A plugin is a single `plugin.json` manifest — no C#, no compilation. The manifest declares:
