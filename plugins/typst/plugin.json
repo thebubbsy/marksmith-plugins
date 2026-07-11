@@ -2,8 +2,8 @@
   "manifestVersion": 1,
   "id": "typst",
   "name": "Typst Snippets",
-  "description": "Renders ```typst code blocks — beautifully typeset math, tables, and figures without a LaTeX install. Downloads the official single-binary Typst release (~20 MB) on install. Windows only for now (Linux/macOS releases ship as .tar.xz, which the installer can't extract yet).",
-  "version": "1.0.0",
+  "description": "Renders ```typst code blocks — beautifully typeset math, tables, and figures without a LaTeX install. Downloads the official single-binary Typst release (~20 MB) on install.",
+  "version": "1.1.0",
   "homepage": "https://typst.app",
   "license": "Apache-2.0",
   "type": "diagram",
@@ -26,6 +26,46 @@
       "source": "github-latest",
       "repo": "typst/typst",
       "assetPattern": "^typst-aarch64-pc-windows-msvc\\.zip$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "typst.tar.xz",
+      "os": "linux",
+      "arch": "x64",
+      "source": "github-latest",
+      "repo": "typst/typst",
+      "assetPattern": "^typst-x86_64-unknown-linux-musl\\.tar\\.xz$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "typst.tar.xz",
+      "os": "linux",
+      "arch": "aarch64",
+      "source": "github-latest",
+      "repo": "typst/typst",
+      "assetPattern": "^typst-aarch64-unknown-linux-musl\\.tar\\.xz$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "typst.tar.xz",
+      "os": "mac",
+      "arch": "aarch64",
+      "source": "github-latest",
+      "repo": "typst/typst",
+      "assetPattern": "^typst-aarch64-apple-darwin\\.tar\\.xz$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "typst.tar.xz",
+      "os": "mac",
+      "arch": "x64",
+      "source": "github-latest",
+      "repo": "typst/typst",
+      "assetPattern": "^typst-x86_64-apple-darwin\\.tar\\.xz$",
       "extract": true,
       "stripRoot": true
     }

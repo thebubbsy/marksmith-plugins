@@ -17,7 +17,7 @@
     "version": { "type": "string", "minLength": 1 },
     "homepage": { "type": "string", "format": "uri" },
     "license": { "type": "string" },
-    "type": { "enum": ["diagram"] },
+    "type": { "enum": ["diagram", "importer"] },
     "fenceLanguages": {
       "type": "array",
       "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
@@ -27,7 +27,7 @@
       "type": "object",
       "required": ["kind"],
       "properties": {
-        "kind": { "enum": ["jre"] },
+        "kind": { "enum": ["jre", "node"] },
         "majorVersion": { "type": "integer", "minimum": 8, "default": 17 }
       }
     },
@@ -40,11 +40,13 @@
           "name": { "type": "string", "minLength": 1 },
           "os": { "enum": ["windows", "linux", "mac"] },
           "arch": { "enum": ["x64", "aarch64"] },
-          "source": { "enum": ["url", "github-latest"] },
+          "source": { "enum": ["url", "github-latest", "npm"] },
           "url": { "type": "string", "format": "uri" },
           "sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
           "repo": { "type": "string", "pattern": "^[^/]+/[^/]+$" },
           "assetPattern": { "type": "string" },
+          "package": { "type": "string" },
+          "packageVersion": { "type": "string" },
           "extract": { "type": "boolean", "default": false },
           "stripRoot": { "type": "boolean", "default": false }
         },
@@ -56,6 +58,10 @@
           {
             "if": { "properties": { "source": { "const": "github-latest" } } },
             "then": { "required": ["repo", "assetPattern"] }
+          },
+          {
+            "if": { "properties": { "source": { "const": "npm" } } },
+            "then": { "required": ["package"] }
           }
         ]
       }
@@ -79,12 +85,33 @@
           }
         }
       }
+    },
+    "import": {
+      "type": "object",
+      "required": ["extensions", "command"],
+      "properties": {
+        "extensions": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z0-9]+$" },
+          "minItems": 1
+        },
+        "command": { "type": "string", "minLength": 1 },
+        "commandWindows": { "type": "string" },
+        "commandLinux": { "type": "string" },
+        "commandMac": { "type": "string" },
+        "args": { "type": "array", "items": { "type": "string" } },
+        "timeoutSeconds": { "type": "integer", "minimum": 1, "maximum": 300, "default": 60 }
+      }
     }
   },
   "allOf": [
     {
       "if": { "properties": { "type": { "const": "diagram" } } },
       "then": { "required": ["fenceLanguages", "render"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "importer" } } },
+      "then": { "required": ["import"] }
     }
   ]
 }

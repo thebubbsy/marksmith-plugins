@@ -1,0 +1,62 @@
+{
+  "manifestVersion": 1,
+  "id": "lilypond",
+  "name": "LilyPond Sheet Music",
+  "description": "Renders ```lilypond code blocks as engraved sheet music with GNU LilyPond. Downloads the official LilyPond 2.24.4 release (~40 MB, checksum-pinned) on install.",
+  "version": "1.0.0",
+  "homepage": "https://lilypond.org",
+  "license": "GPL-3.0",
+  "type": "diagram",
+  "fenceLanguages": ["lilypond", "ly"],
+  "artifacts": [
+    {
+      "name": "lilypond.zip",
+      "os": "windows",
+      "arch": "x64",
+      "source": "url",
+      "url": "https://gitlab.com/api/v4/projects/lilypond%2Flilypond/packages/generic/lilypond/2.24.4/lilypond-2.24.4-mingw-x86_64.zip",
+      "sha256": "e238f5a33ebde7466fe03d0fbcaa155a44536ca582951972482e0b00ceb0fbf1",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "lilypond.tar.gz",
+      "os": "linux",
+      "arch": "x64",
+      "source": "url",
+      "url": "https://gitlab.com/api/v4/projects/lilypond%2Flilypond/packages/generic/lilypond/2.24.4/lilypond-2.24.4-linux-x86_64.tar.gz",
+      "sha256": "53bc1df875ee56dabe56ae1f0b4550237e0c9acc837b60f0ef8c42fc35a68641",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "lilypond.tar.gz",
+      "os": "mac",
+      "arch": "aarch64",
+      "source": "url",
+      "url": "https://gitlab.com/api/v4/projects/lilypond%2Flilypond/packages/generic/lilypond/2.24.4/lilypond-2.24.4-darwin-arm64.tar.gz",
+      "sha256": "9491d4737000e80bcbdd7a39e9dc13c2178ff865beff7d800d6159bfc395e8fa",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "lilypond.tar.gz",
+      "os": "mac",
+      "arch": "x64",
+      "source": "url",
+      "url": "https://gitlab.com/api/v4/projects/lilypond%2Flilypond/packages/generic/lilypond/2.24.4/lilypond-2.24.4-darwin-x86_64.tar.gz",
+      "sha256": "84a1e6173afd8f1eda1e39c610a498c41aa20975b4ffaad2e2b2810a52da90b8",
+      "extract": true,
+      "stripRoot": true
+    }
+  ],
+  "render": {
+    "command": "{dir}/bin/lilypond",
+    "args": ["-dbackend=svg", "-dno-point-and-click", "-o", "{outputBase}", "{input}"],
+    "input": "file",
+    "inputExtension": ".ly",
+    "output": "file",
+    "timeoutSeconds": 60,
+    "wrap": { "prefix": "\\version \"2.24.4\"\n\\header { tagline = ##f }\n", "suffix": "", "unlessContains": "\\version" }
+  }
+}

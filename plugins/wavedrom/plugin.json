@@ -1,0 +1,28 @@
+{
+  "manifestVersion": 1,
+  "id": "wavedrom",
+  "name": "WaveDrom Timing Diagrams",
+  "description": "Renders ```wavedrom code blocks (JSON signal descriptions) as digital timing diagrams. Downloads a private Node.js LTS runtime (~30 MB) plus wavedrom-cli from npm on install — isolated from any Node already on your system.",
+  "version": "1.0.0",
+  "homepage": "https://wavedrom.com",
+  "license": "MIT",
+  "type": "diagram",
+  "fenceLanguages": ["wavedrom"],
+  "runtime": { "kind": "node" },
+  "artifacts": [
+    {
+      "name": "wavedrom-cli",
+      "source": "npm",
+      "package": "wavedrom-cli",
+      "packageVersion": "3.2.0"
+    }
+  ],
+  "render": {
+    "command": "{node}",
+    "args": ["{dir}/npm/node_modules/wavedrom-cli/wavedrom-cli.js", "-i", "{input}", "-s", "{output}"],
+    "input": "file",
+    "inputExtension": ".json5",
+    "output": "file",
+    "timeoutSeconds": 30
+  }
+}

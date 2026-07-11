@@ -34,8 +34,8 @@
       "manifest": "plugins/typst/plugin.json",
       "builtin": true,
       "verified": true,
-      "platforms": ["windows"],
-      "summary": "Renders ```typst fences — typeset math/tables/figures without LaTeX. Windows-only until the installer supports .tar.xz."
+      "platforms": ["windows", "linux", "mac"],
+      "summary": "Renders ```typst fences — typeset math/tables/figures without LaTeX. All platforms (Linux/macOS via .tar.xz extraction)."
     },
     {
       "id": "vega-lite",
@@ -45,6 +45,33 @@
       "verified": true,
       "platforms": ["windows", "linux", "mac"],
       "summary": "Renders ```vega-lite / ```vegalite JSON chart specs as real data visualizations via the official vl-convert binary."
+    },
+    {
+      "id": "lilypond",
+      "name": "LilyPond Sheet Music",
+      "manifest": "plugins/lilypond/plugin.json",
+      "builtin": true,
+      "verified": true,
+      "platforms": ["windows", "linux", "mac"],
+      "summary": "Renders ```lilypond / ```ly fences as engraved sheet music (official 2.24.4, checksum-pinned — 2.26.0's Windows build crashes on compile)."
+    },
+    {
+      "id": "wavedrom",
+      "name": "WaveDrom Timing Diagrams",
+      "manifest": "plugins/wavedrom/plugin.json",
+      "builtin": true,
+      "verified": true,
+      "platforms": ["windows", "linux", "mac"],
+      "summary": "Renders ```wavedrom JSON signal descriptions as digital timing diagrams (private Node.js LTS runtime + wavedrom-cli from npm)."
+    },
+    {
+      "id": "pandoc-import",
+      "name": "Pandoc File Importer",
+      "manifest": "plugins/pandoc-import/plugin.json",
+      "builtin": true,
+      "verified": true,
+      "platforms": ["windows", "linux", "mac"],
+      "summary": "Importer (not a diagram renderer): open/drop .rst/.org/.mediawiki/.textile/.docx/.odt/.rtf/.epub files — Pandoc converts them to Markdown on the way in."
     }
   ]
 }

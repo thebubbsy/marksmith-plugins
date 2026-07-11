@@ -1,0 +1,70 @@
+{
+  "manifestVersion": 1,
+  "id": "pandoc-import",
+  "name": "Pandoc File Importer",
+  "description": "Open or drop reStructuredText, Org-mode, MediaWiki, Textile, DOCX, ODT, RTF, and EPUB files — Pandoc converts them to Markdown on the way in. Downloads the official Pandoc release (~40 MB) on install.",
+  "version": "1.0.0",
+  "homepage": "https://pandoc.org",
+  "license": "GPL-2.0-or-later",
+  "type": "importer",
+  "artifacts": [
+    {
+      "name": "pandoc.zip",
+      "os": "windows",
+      "arch": "x64",
+      "source": "github-latest",
+      "repo": "jgm/pandoc",
+      "assetPattern": "^pandoc-[\\d.]+-windows-x86_64\\.zip$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "pandoc.tar.gz",
+      "os": "linux",
+      "arch": "x64",
+      "source": "github-latest",
+      "repo": "jgm/pandoc",
+      "assetPattern": "^pandoc-[\\d.]+-linux-amd64\\.tar\\.gz$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "pandoc.tar.gz",
+      "os": "linux",
+      "arch": "aarch64",
+      "source": "github-latest",
+      "repo": "jgm/pandoc",
+      "assetPattern": "^pandoc-[\\d.]+-linux-arm64\\.tar\\.gz$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "pandoc.zip",
+      "os": "mac",
+      "arch": "aarch64",
+      "source": "github-latest",
+      "repo": "jgm/pandoc",
+      "assetPattern": "^pandoc-[\\d.]+-arm64-macOS\\.zip$",
+      "extract": true,
+      "stripRoot": true
+    },
+    {
+      "name": "pandoc.zip",
+      "os": "mac",
+      "arch": "x64",
+      "source": "github-latest",
+      "repo": "jgm/pandoc",
+      "assetPattern": "^pandoc-[\\d.]+-x86_64-macOS\\.zip$",
+      "extract": true,
+      "stripRoot": true
+    }
+  ],
+  "import": {
+    "extensions": ["rst", "org", "mediawiki", "wiki", "textile", "docx", "odt", "rtf", "epub"],
+    "command": "{dir}/pandoc",
+    "commandLinux": "{dir}/bin/pandoc",
+    "commandMac": "{dir}/bin/pandoc",
+    "args": ["{input}", "-t", "gfm", "--wrap=none", "--markdown-headings=atx"],
+    "timeoutSeconds": 120
+  }
+}

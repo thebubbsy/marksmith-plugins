@@ -27,8 +27,9 @@ A plugin is one JSON file. Comments and trailing commas are tolerated by the par
 "runtime": { "kind": "jre", "majorVersion": 17 }
 ```
 
-- `kind`: only `"jre"` today. The host downloads a private Eclipse Temurin JRE (via Adoptium's official API, correct OS/arch automatically) into `<plugin>/jre/`. Reference its `java` executable as `{java}` in `render`.
-- Never assume Java (or anything else) is already on the user's machine.
+- `"jre"`: the host downloads a private Eclipse Temurin JRE (via Adoptium's official API, correct OS/arch automatically) into `<plugin>/jre/`. Reference its `java` executable as `{java}`.
+- `"node"`: the host downloads the current Node.js LTS (via nodejs.org's official dist index) into `<plugin>/node/`. Reference its `node` executable as `{node}`. (`majorVersion` is ignored — Node always provisions the newest LTS.)
+- Never assume Java, Node, or anything else is already on the user's machine.
 
 ## `artifacts[]`
 
@@ -39,13 +40,15 @@ Each artifact is one downloaded file, optionally extracted.
 | `name` | string | Target filename inside the plugin folder (or the archive's temp name when `extract: true`). |
 | `os` | string? | `"windows"` / `"linux"` / `"mac"` — omit for all platforms. List per-OS variants side by side; each machine downloads only its own. |
 | `arch` | string? | `"x64"` / `"aarch64"` — omit for all. |
-| `source` | string | `"url"` or `"github-latest"`. |
+| `source` | string | `"url"`, `"github-latest"`, or `"npm"`. |
 | `url` | string | For `source: "url"` — direct download link. |
 | `sha256` | string | Hex digest verified after download; mismatch aborts the install and deletes the file. **Required for registry-listed direct-URL artifacts.** |
 | `repo` | string | For `github-latest` — `"owner/name"`. |
 | `assetPattern` | string | For `github-latest` — regex matched against release asset names; first match wins. |
-| `extract` | bool | Treat the download as a `.zip` / `.tar.gz` and extract into the plugin folder. |
-| `stripRoot` | bool | With `extract` — remove a single wrapping top-level directory (the common `tool-1.2.3/` layout). |
+| `package` | string | For `npm` — the package name. Installed via the plugin's provisioned Node runtime's own npm into `<plugin>/npm/node_modules/<package>` (requires `runtime: { "kind": "node" }` and pulls the package's whole dependency tree — use for JS tools that aren't distributed self-contained, e.g. wavedrom-cli). |
+| `packageVersion` | string | For `npm` — exact version. Strongly recommended: pins the tree. |
+| `extract` | bool | Treat the download as a `.zip` / `.tar.gz` / `.tar.xz` and extract into the plugin folder. |
+| `stripRoot` | bool | With `extract` — remove a single wrapping top-level directory (the common `tool-1.2.3/` layout). macOS AppleDouble junk (`._*`, `.DS_Store`) is ignored during extraction. |
 
 On Linux/macOS, non-archive artifacts and extracted files referenced as the render command are marked executable automatically.
 
@@ -64,8 +67,8 @@ On Linux/macOS, non-archive artifacts and extracted files referenced as the rend
 
 | Field | Meaning |
 | --- | --- |
-| `command` | Executable to run. Placeholders: `{java}` (the provisioned JRE's java), `{dir}` (the plugin's folder). On Windows, a command without an extension gets `.exe` appended automatically if that file exists — so `{dir}/d2` works cross-platform. |
-| `args` | Argument list (each element is one argument — no shell, no quoting games). Placeholders: `{java}`, `{dir}`, plus `{input}` / `{output}` (temp file paths, only meaningful with the file modes below). |
+| `command` | Executable to run. Placeholders: `{java}` / `{node}` (the provisioned runtime's executable), `{dir}` (the plugin's folder). On Windows, a command without an extension gets `.exe` appended automatically if that file exists — so `{dir}/d2` works cross-platform. |
+| `args` | Argument list (each element is one argument — no shell, no quoting games). Placeholders: `{java}`, `{node}`, `{dir}`, plus `{input}` / `{output}` / `{outputBase}` (temp file paths, only meaningful with the file modes below; `{outputBase}` is `{output}` minus its `.svg` extension, for tools like LilyPond that take an output basename and append the extension themselves). |
 | `input` | `"stdin"`: diagram source is written to your process's stdin. `"file"`: source is written to a temp file whose path replaces `{input}` in args. |
 | `inputExtension` | With `input: "file"` — the temp file's extension, dot included (default `".txt"`). Tools like Typst (`.typ`) and D2 (`.d2`) enforce or sniff the extension. |
 | `output` | `"stdout"`: your process prints the SVG to stdout. `"file"`: you write it to the path that replaces `{output}`. |
@@ -84,6 +87,30 @@ On Linux/macOS, non-archive artifacts and extracted files referenced as the rend
 - No shell involved; your `command` is executed directly.
 - One process per (plugin, unique-diagram-source); results are cached by content hash for the app session, so don't rely on per-invocation side effects.
 - Renders can happen concurrently and repeatedly (live preview re-renders as the user types). Keep startup as cheap as your stack allows.
+
+## `import` (for `type: "importer"`)
+
+Importer plugins convert non-Markdown files to Markdown when the user opens or drops one — the
+first non-diagram plugin type. Reference: `plugins/pandoc-import/plugin.json`.
+
+```json
+"type": "importer",
+"import": {
+  "extensions": ["rst", "org", "docx"],
+  "command": "{dir}/pandoc",
+  "commandLinux": "{dir}/bin/pandoc",
+  "commandMac": "{dir}/bin/pandoc",
+  "args": ["{input}", "-t", "gfm", "--wrap=none"],
+  "timeoutSeconds": 120
+}
+```
+
+| Field | Meaning |
+| --- | --- |
+| `extensions` | File extensions claimed, lowercase, no dot. First installed importer claiming an extension wins. `.md`/`.markdown`/`.txt` can't be claimed — they always read raw. |
+| `command` | As in `render`. `commandWindows` / `commandLinux` / `commandMac` override it per-OS, for tools whose archive layout differs by platform (Pandoc: `pandoc.exe` at the zip root on Windows, `bin/pandoc` in the tarballs). |
+| `args` | `{input}` is the user's **real file path** (no temp copy — tools like Pandoc infer the input format from the extension). Print Markdown to stdout; exit non-zero on failure (the app then falls back to reading the file raw). |
+| `timeoutSeconds` | 1–300, default 60. |
 
 ## Lifecycle & expectations
 

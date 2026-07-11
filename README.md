@@ -6,15 +6,18 @@ Plugins add **optional, separately-downloaded capabilities** to Marksmith. Nothi
 
 ## Available plugins
 
-| Plugin | Fences | Platforms |
-| --- | --- | --- |
-| [PlantUML](plugins/plantuml/plugin.json) | ` ```plantuml `, ` ```puml ` | Windows, Linux, macOS |
-| [Graphviz / DOT](plugins/graphviz/plugin.json) | ` ```dot `, ` ```graphviz ` | Windows, macOS (Intel) |
-| [D2](plugins/d2/plugin.json) | ` ```d2 ` | Windows, Linux, macOS |
-| [Typst](plugins/typst/plugin.json) | ` ```typst ` | Windows |
-| [Vega-Lite](plugins/vega-lite/plugin.json) | ` ```vega-lite `, ` ```vegalite ` | Windows, Linux, macOS |
+| Plugin | Type | Fences / files | Platforms |
+| --- | --- | --- | --- |
+| [PlantUML](plugins/plantuml/plugin.json) | diagram | ` ```plantuml `, ` ```puml ` | Windows, Linux, macOS |
+| [Graphviz / DOT](plugins/graphviz/plugin.json) | diagram | ` ```dot `, ` ```graphviz ` | Windows, macOS (Intel) |
+| [D2](plugins/d2/plugin.json) | diagram | ` ```d2 ` | Windows, Linux, macOS |
+| [Typst](plugins/typst/plugin.json) | diagram | ` ```typst ` | Windows, Linux, macOS |
+| [Vega-Lite](plugins/vega-lite/plugin.json) | diagram | ` ```vega-lite `, ` ```vegalite ` | Windows, Linux, macOS |
+| [LilyPond](plugins/lilypond/plugin.json) | diagram | ` ```lilypond `, ` ```ly ` | Windows, Linux, macOS |
+| [WaveDrom](plugins/wavedrom/plugin.json) | diagram | ` ```wavedrom ` | Windows, Linux, macOS |
+| [Pandoc Importer](plugins/pandoc-import/plugin.json) | importer | .rst .org .mediawiki .textile .docx .odt .rtf .epub | Windows, Linux, macOS |
 
-All five ship built into Marksmith's *Settings → Plugins* list (payloads still download only on install); the copies here are the canonical manifests. Every listed plugin is verified: real install, real render, on at least Windows. See [IDEAS.md](IDEAS.md) for what's next and where help is wanted.
+All eight ship built into Marksmith's *Settings → Plugins* list (payloads still download only on install); the copies here are the canonical manifests. Every listed plugin is verified: real install, real render/conversion, on at least Windows. See [IDEAS.md](IDEAS.md) for what's next and where help is wanted.
 
 ## What a plugin is
 
