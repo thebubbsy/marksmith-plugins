@@ -7,7 +7,11 @@
       "manifest": "plugins/plantuml/plugin.json",
       "builtin": true,
       "verified": true,
-      "platforms": ["windows", "linux", "mac"],
+      "platforms": [
+        "windows",
+        "linux",
+        "mac"
+      ],
       "summary": "Renders ```plantuml / ```puml fences via the real PlantUML engine (private JRE + plantuml-mit.jar, downloaded on install)."
     },
     {
@@ -16,8 +20,12 @@
       "manifest": "plugins/d2/plugin.json",
       "builtin": true,
       "verified": true,
-      "platforms": ["windows", "linux", "mac"],
-      "summary": "Renders ```d2 fences with Terrastruct's D2 — modern architecture/system diagrams from a single official binary."
+      "platforms": [
+        "windows",
+        "linux",
+        "mac"
+      ],
+      "summary": "Renders ```d2 fences with Terrastruct's D2 \u2014 modern architecture/system diagrams from a single official binary."
     },
     {
       "id": "graphviz",
@@ -25,7 +33,10 @@
       "manifest": "plugins/graphviz/plugin.json",
       "builtin": true,
       "verified": true,
-      "platforms": ["windows", "mac-x64"],
+      "platforms": [
+        "windows",
+        "mac-x64"
+      ],
       "summary": "Renders ```dot / ```graphviz fences with the official Graphviz engine (checksum-pinned 15.1.0). No portable Linux build exists upstream."
     },
     {
@@ -34,8 +45,12 @@
       "manifest": "plugins/typst/plugin.json",
       "builtin": true,
       "verified": true,
-      "platforms": ["windows", "linux", "mac"],
-      "summary": "Renders ```typst fences — typeset math/tables/figures without LaTeX. All platforms (Linux/macOS via .tar.xz extraction)."
+      "platforms": [
+        "windows",
+        "linux",
+        "mac"
+      ],
+      "summary": "Renders ```typst fences \u2014 typeset math/tables/figures without LaTeX. All platforms (Linux/macOS via .tar.xz extraction)."
     },
     {
       "id": "vega-lite",
@@ -43,7 +58,11 @@
       "manifest": "plugins/vega-lite/plugin.json",
       "builtin": true,
       "verified": true,
-      "platforms": ["windows", "linux", "mac"],
+      "platforms": [
+        "windows",
+        "linux",
+        "mac"
+      ],
       "summary": "Renders ```vega-lite / ```vegalite JSON chart specs as real data visualizations via the official vl-convert binary."
     },
     {
@@ -52,8 +71,12 @@
       "manifest": "plugins/lilypond/plugin.json",
       "builtin": true,
       "verified": true,
-      "platforms": ["windows", "linux", "mac"],
-      "summary": "Renders ```lilypond / ```ly fences as engraved sheet music (official 2.24.4, checksum-pinned — 2.26.0's Windows build crashes on compile)."
+      "platforms": [
+        "windows",
+        "linux",
+        "mac"
+      ],
+      "summary": "Renders ```lilypond / ```ly fences as engraved sheet music (official 2.24.4, checksum-pinned \u2014 2.26.0's Windows build crashes on compile)."
     },
     {
       "id": "wavedrom",
@@ -61,7 +84,11 @@
       "manifest": "plugins/wavedrom/plugin.json",
       "builtin": true,
       "verified": true,
-      "platforms": ["windows", "linux", "mac"],
+      "platforms": [
+        "windows",
+        "linux",
+        "mac"
+      ],
       "summary": "Renders ```wavedrom JSON signal descriptions as digital timing diagrams (private Node.js LTS runtime + wavedrom-cli from npm)."
     },
     {
@@ -70,8 +97,23 @@
       "manifest": "plugins/pandoc-import/plugin.json",
       "builtin": true,
       "verified": true,
-      "platforms": ["windows", "linux", "mac"],
-      "summary": "Importer (not a diagram renderer): open/drop .rst/.org/.mediawiki/.textile/.docx/.odt/.rtf/.epub files — Pandoc converts them to Markdown on the way in."
+      "platforms": [
+        "windows",
+        "linux",
+        "mac"
+      ],
+      "summary": "Importer (not a diagram renderer): open/drop .rst/.org/.mediawiki/.textile/.docx/.odt/.rtf/.epub files \u2014 Pandoc converts them to Markdown on the way in."
+    },
+    {
+      "id": "marksmith-office",
+      "name": "Office Capability (Word fidelity)",
+      "manifest": "plugins/marksmith-office/plugin.json",
+      "builtin": true,
+      "verified": true,
+      "platforms": [
+        "windows"
+      ],
+      "summary": "Drives the installed Microsoft Word (via NetOffice) for 100%-accurate SmartArt/DrawingML renders, the Word-exact tiled preview, and .docx verification. Requires Microsoft Office; harmless when absent."
     }
   ]
 }

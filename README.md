@@ -16,8 +16,9 @@ Plugins add **optional, separately-downloaded capabilities** to Marksmith. Nothi
 | [LilyPond](plugins/lilypond/plugin.json) | diagram | ` ```lilypond `, ` ```ly ` | Windows, Linux, macOS |
 | [WaveDrom](plugins/wavedrom/plugin.json) | diagram | ` ```wavedrom ` | Windows, Linux, macOS |
 | [Pandoc Importer](plugins/pandoc-import/plugin.json) | importer | .rst .org .mediawiki .textile .docx .odt .rtf .epub | Windows, Linux, macOS |
+| [Office Capability](plugins/marksmith-office/plugin.json) | office | — (Word fidelity: SmartArt/DrawingML renders, .docx verify) | Windows (requires Microsoft Office) |
 
-All eight ship built into Marksmith's *Settings → Plugins* list (payloads still download only on install); the copies here are the canonical manifests. Every listed plugin is verified: real install, real render/conversion, on at least Windows. See [IDEAS.md](IDEAS.md) for what's next and where help is wanted.
+All nine ship built into Marksmith's *Settings → Plugins* list (payloads still download only on install); the copies here are the canonical manifests. Every listed plugin is verified: real install, real render/conversion, on at least Windows. See [IDEAS.md](IDEAS.md) for what's next and where help is wanted.
 
 ## What a plugin is
 
@@ -32,7 +33,7 @@ Read the full authoring spec in [SPEC.md](SPEC.md). The machine-readable schema 
 
 ## Installing a plugin manually
 
-1. Create a folder: `%LOCALAPPDATA%\MdToPdf\Plugins\<plugin-id>\` (Windows) or `~/.local/share/MdToPdf/Plugins/<plugin-id>/` (Linux/macOS — the app's local-app-data equivalent).
+1. Create a folder: `%LOCALAPPDATA%\MarkSmith\Plugins\<plugin-id>\` (Windows) or `~/.local/share/MarkSmith/Plugins/<plugin-id>/` (Linux/macOS — the app's local-app-data equivalent).
    The folder name **must equal** the manifest's `id`.
 2. Drop the plugin's `plugin.json` into it.
 3. Restart Marksmith. The plugin appears in *Settings → Plugins*; click **Install** to fetch its payload.

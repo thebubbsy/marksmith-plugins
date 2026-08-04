@@ -1,6 +1,6 @@
 # Plugin manifest specification (`plugin.json`)
 
-**Manifest version: 1.** This document is the authoring contract; the C# models it must stay in sync with live in Marksmith's `MdToPdf.Core/Plugins/PluginManifest.cs`.
+**Manifest version: 1.** This document is the authoring contract; the C# models it must stay in sync with live in Marksmith's `MarkSmith.Core/Plugins/PluginManifest.cs`.
 
 A plugin is one JSON file. Comments and trailing commas are tolerated by the parser, but keep committed manifests clean-JSON so other tools can read them.
 
@@ -9,7 +9,7 @@ A plugin is one JSON file. Comments and trailing commas are tolerated by the par
 | Field | Type | Required | Meaning |
 | --- | --- | --- | --- |
 | `manifestVersion` | int | yes | Always `1` for this spec. |
-| `id` | string | yes | Lowercase, stable, unique. Doubles as the install folder name (`…\MdToPdf\Plugins\<id>\`). |
+| `id` | string | yes | Lowercase, stable, unique. Doubles as the install folder name (`…\MarkSmith\Plugins\<id>\`). |
 | `name` | string | yes | Display name shown in Settings → Plugins. |
 | `description` | string | yes | One or two sentences shown under the name. Say what it renders **and** what it downloads (size, runtime) — users decide from this text. |
 | `version` | string | yes | Your plugin's own version (semver recommended). |
@@ -114,7 +114,7 @@ first non-diagram plugin type. Reference: `plugins/pandoc-import/plugin.json`.
 
 ## Lifecycle & expectations
 
-1. **Discovery** — at app start, Marksmith loads built-in manifests, then scans `…\MdToPdf\Plugins\*\plugin.json`. Folder name must equal `id`; ids collide → the drop-in is skipped with a visible warning (built-ins can't be overridden).
+1. **Discovery** — at app start, Marksmith loads built-in manifests, then scans `…\MarkSmith\Plugins\*\plugin.json`. Folder name must equal `id`; ids collide → the drop-in is skipped with a visible warning (built-ins can't be overridden).
 2. **Install** — user clicks Install: runtime first, then artifacts in order, with progress. Any failure leaves the plugin "not installed"; installs must be idempotent (re-install overwrites).
 3. **Render** — every matching code fence in preview and PDF export goes through your `render` spec. DOCX/PPTX/EPUB export does not yet embed plugin diagrams (roadmap).
 4. **Uninstall** — the plugin folder is deleted recursively. Keep *all* your state in it.
