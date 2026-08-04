@@ -16,9 +16,11 @@ Plugins add **optional, separately-downloaded capabilities** to Marksmith. Nothi
 | [LilyPond](plugins/lilypond/plugin.json) | diagram | ` ```lilypond `, ` ```ly ` | Windows, Linux, macOS |
 | [WaveDrom](plugins/wavedrom/plugin.json) | diagram | ` ```wavedrom ` | Windows, Linux, macOS |
 | [Pandoc Importer](plugins/pandoc-import/plugin.json) | importer | .rst .org .mediawiki .textile .docx .odt .rtf .epub | Windows, Linux, macOS |
-| [Office Capability](plugins/marksmith-office/plugin.json) | office | — (Word fidelity: SmartArt/DrawingML renders, .docx verify) | Windows (requires Microsoft Office) |
+| [Office Capability](plugins/marksmith-office/plugin.json) | office | — (Word fidelity: 100%-accurate Word preview, .docx verify) | Windows (requires Microsoft Office) |
 
 All nine ship built into Marksmith's *Settings → Plugins* list (payloads still download only on install); the copies here are the canonical manifests. Every listed plugin is verified: real install, real render/conversion, on at least Windows. See [IDEAS.md](IDEAS.md) for what's next and where help is wanted.
+
+**Office Capability** is the app's Word-exact preview engine: the payload is a small out-of-process host that drives the installed Microsoft Word via NetOffice — Word's own PDF export lays out the document (headers, footers, page borders, fonts), and the OS PDF rasterizer turns each page into a crisp 2× tile. The preview docx is built through the same full export pipeline as a real export, edits re-render only the page bands they touch, and scrolling survives every refresh. The payload (`dist/marksmith-office-host.zip`, sha256-pinned) is published from the main repo; Install downloads + extracts it, Remove stops the running host before deleting.
 
 ## What a plugin is
 
