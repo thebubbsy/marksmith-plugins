@@ -103,17 +103,6 @@
         "mac"
       ],
       "summary": "Importer (not a diagram renderer): open/drop .rst/.org/.mediawiki/.textile/.docx/.odt/.rtf/.epub files \u2014 Pandoc converts them to Markdown on the way in."
-    },
-    {
-      "id": "marksmith-office",
-      "name": "Office Capability (Word fidelity)",
-      "manifest": "plugins/marksmith-office/plugin.json",
-      "builtin": true,
-      "verified": true,
-      "platforms": [
-        "windows"
-      ],
-      "summary": "Drives the installed Microsoft Word (via NetOffice) for 100%-accurate SmartArt/DrawingML renders, the Word-exact tiled preview, and .docx verification. Requires Microsoft Office; harmless when absent."
     }
   ]
 }
